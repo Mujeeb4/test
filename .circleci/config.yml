@@ -29,6 +29,7 @@ jobs:
             # Optionally record the session
             ffmpeg -video_size 1280x1024 -framerate 25 -f x11grab -i :99.0 screen_recording.mp4
 
+  # Schedule the job
 workflows:
   version: 2
   scheduled_tests:
@@ -37,7 +38,3 @@ workflows:
     triggers:
       - schedule:
           cron: "0 0 * * *"  # Runs daily at midnight
-          filters:
-            branches:
-              only:
-                - circleci-project-setup  # Replace 'main' with your branch name if different
