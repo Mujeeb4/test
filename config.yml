@@ -29,14 +29,28 @@ jobs:
             # Optionally record the session
             ffmpeg -video_size 1280x1024 -framerate 25 -f x11grab -i :99.0 screen_recording.mp4
 
+  release:
+    executor: python-executor
+    steps:
+      - checkout
+      - run: git fetch --tags
+      - run:
+          name: Release
+          command: sbt clean compile ci-release
+
 workflows:
-  scheduled_tests:
+  version: 2
+  build-and-release:
     jobs:
-      - test
-    triggers:
-      - schedule:
-          cron: "0 0 * * *"
+      - test:
           filters:
             branches:
-              only:
-                - circleci-project-setup  # Use the correct branch
+              ignore: /.*/  # Ignore all branches
+            tags:
+              only: /^v.*/  # Only trigger on tags that start with 'v'
+      - release:
+          requires:
+            - test
+          filters:
+            tags:
+              only: /^v.*/  # Only trigger the release job on tags starting with 'v'
