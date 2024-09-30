@@ -39,7 +39,6 @@ jobs:
           command: sbt clean compile ci-release
 
 workflows:
-  version: 2
   build-and-release:
     jobs:
       - test:
