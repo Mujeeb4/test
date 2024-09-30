@@ -30,7 +30,6 @@ jobs:
             ffmpeg -video_size 1280x1024 -framerate 25 -f x11grab -i :99.0 screen_recording.mp4
 
 workflows:
-  version: 2
   scheduled_tests:
     jobs:
       - test
