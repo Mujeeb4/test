@@ -3,14 +3,14 @@ version: 2.1
 executors:
   python-executor:
     docker:
-      - image: circleci/python:3.8  # Python environment
+      - image: circleci/python:3.8
     working_directory: ~/repo
 
 jobs:
   test:
     executor: python-executor
     steps:
-      - checkout  # Check out the repository code
+      - checkout
       - run:
           name: Install dependencies
           command: |
@@ -36,8 +36,8 @@ workflows:
       - test
     triggers:
       - schedule:
-          cron: "0 0 * * *"  # Runs daily at midnight
+          cron: "0 0 * * *"
           filters:
             branches:
               only:
-                - circleci-project-setup  # Replace 'main' with your branch name if different
+                - circleci-project-setup  # Use the correct branch
