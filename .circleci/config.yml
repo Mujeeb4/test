@@ -50,10 +50,4 @@ workflows:
             branches:
               ignore: /.*/  # Ignore all branches
             tags:
-              only: /^v.*/  # Only trigger on tags that start with 'v'
-      - release:
-          requires:
-            - test
-          filters:
-            tags:
-              only: /^v.*/  # Only trigger the release job on tags starting with 'v'
+              only: /^v.*/  # Only trigger on tags that start with 'v'#
