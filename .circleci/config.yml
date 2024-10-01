@@ -15,7 +15,7 @@ jobs:
           name: Install dependencies
           command: |
             sudo apt-get update
-            sudo apt-get install -y unzip wget xvfb chromium-browser
+            sudo apt-get install -y unzip wget xvfb firefox
             pip install selenium
       - run:
           name: Run the test with screen recording
@@ -51,4 +51,9 @@ workflows:
               ignore: /.*/  # Ignore all branches
             tags:
               only: /^v.*/  # Only trigger on tags that start with 'v'
-      #this is end
+      - release:
+          requires:
+            - test
+          filters:
+            tags:
+              only: /^v.*/  # Only trigger the release job on tags starting with 'v'
