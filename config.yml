@@ -12,27 +12,26 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Download Chromium Browser
+          name: Install Chromium Browser
           command: |
-            wget https://chromium-browser-snapshots.appspot.com/downloads/latest/chromium-browser-latest-linux64.zip
-            unzip chromium-browser-latest-linux64.zip
-            mv chromium-browser-latest-linux64/chromium /usr/local/bin/chromium
+            sudo apt-get update
+            sudo apt-get install -y chromium-browser xvfb
       - run:
           name: Install dependencies
           command: |
             sudo apt-get update
-            sudo apt-get install -y unzip wget xvfb
+            sudo apt-get install -y unzip wget
             pip install selenium
       - run:
           name: Run the test with screen recording
           command: |
             Xvfb :99 -screen 0 1280x1024x16 & # Start virtual display
             export DISPLAY=:99
+            chromium-browser --version  # Check Chromium installation
             python test_script.py
             # Optionally record the session
             ffmpeg -video_size 1280x1024 -framerate 25 -f x11grab -i :99.0 screen_recording.mp4
 
-# This job is just an example and can be replaced with your actual release job
 release:
   executor: python-executor
   steps:
@@ -40,12 +39,10 @@ release:
     - run: echo "Replace this with your release steps"
 
 workflows:
-  # Hourly workflow using environment variable
   hourly-tests:
     jobs:
       - test
 
-# Original workflow (unchanged)
   build-and-release:
     jobs:
       - test:
@@ -53,4 +50,4 @@ workflows:
             branches:
               ignore: /.*/  # Ignore all branches
             tags:
-              only: /^v.*/  # Only trigger on tags that start with 'v'#
+              only: /^v.*/  # Only trigger on tags that start with 'v'
