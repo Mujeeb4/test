@@ -17,7 +17,7 @@ def test_example():
         print("Page Title is: " + title)
 
         # Assert the title is correct
-        assert "https://www.smoothmaths.co.uk" in title
+        assert " Exclusive Exam Papers With Answers | Download Free | SmoothMaths" in title
 
     finally:
         driver.quit()
