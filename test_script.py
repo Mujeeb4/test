@@ -17,7 +17,7 @@ def test_example():
         print("Page Title is: " + title)
 
         # Assert the title is correct
-        assert "Example Domain" in title
+        assert "https://www.smoothmaths.co.uk" in title
 
     finally:
         driver.quit()
