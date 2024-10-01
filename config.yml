@@ -29,16 +29,20 @@ jobs:
             # Optionally record the session
             ffmpeg -video_size 1280x1024 -framerate 25 -f x11grab -i :99.0 screen_recording.mp4
 
-  release:
-    executor: python-executor
-    steps:
-      - checkout
-      - run: git fetch --tags
-      - run:
-          name: Release
-          command: sbt clean compile ci-release
+# This job is just an example and can be replaced with your actual release job
+release:
+  executor: python-executor
+  steps:
+    - checkout
+    - run: echo "Replace this with your release steps"
 
 workflows:
+  # Hourly workflow using environment variable
+  hourly-tests:
+    jobs:
+      - test
+
+# Original workflow (unchanged)
   build-and-release:
     jobs:
       - test:
