@@ -10,14 +10,14 @@ def test_example():
 
     try:
         # Open a website
-        driver.get("https://www.smoothmaths.co.uk")
+        driver.get("https://www.example.com")
         
-        # Example of interacting with a webpage
-        title = driver.title
-        print("Page Title is: " + title)
+        # Fetch the page title
+        title = driver.title.strip()  # Strip spaces for comparison
+        print(f"Page Title is: '{title}'")
 
-        # Assert the title is correct
-        assert "Example Domain" in title
+        # Assert that part of the expected title is present
+        assert "Exclusive Exam Papers With Answers" in title, "Title does not match!"
 
     finally:
         driver.quit()
