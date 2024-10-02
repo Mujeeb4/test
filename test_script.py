@@ -10,7 +10,7 @@ def test_example():
 
     try:
         # Open a website
-        driver.get("https://www.example.com")
+        driver.get("https://www.smoothmaths.co.uk")
         
         # Fetch the page title
         title = driver.title.strip()  # Strip spaces for comparison
