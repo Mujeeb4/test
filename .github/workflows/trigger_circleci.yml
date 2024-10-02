@@ -1,0 +1,19 @@
+name: Trigger CircleCI Pipeline Every Hour
+
+on:
+  schedule:
+    - cron: '0 * * * *'  # This will trigger the workflow every hour
+
+jobs:
+  trigger_pipeline:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Trigger CircleCI Pipeline
+      run: |
+        curl --location --request POST "https://circleci.com/api/v2/project/github/Dovidigital/testLinux/pipeline" \
+        --header "circle-token: ${{ secrets.CIRCLECI_TOKEN }}" \
+        --header "Content-Type: application/json" \
+        --data-raw '{
+          "branch": "main"
+        }'
