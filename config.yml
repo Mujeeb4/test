@@ -12,18 +12,10 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install Google Chrome
+          name: Install dependencies including ffmpeg
           command: |
             sudo apt-get update
-            sudo apt-get install -y wget gnupg2
-            wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-            echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' | sudo tee /etc/apt/sources.list.d/google-chrome.list
-            sudo apt-get update
-            sudo apt-get install -y google-chrome-stable xvfb
-      - run:
-          name: Install dependencies
-          command: |
-            sudo apt-get update
+            sudo apt-get install -y unzip wget xvfb ffmpeg  # Install ffmpeg here
             pip install selenium
       - run:
           name: Run the test with screen recording
@@ -32,7 +24,7 @@ jobs:
             export DISPLAY=:99
             google-chrome --version  # Verify Chrome is installed
             python test_script.py
-            # Optionally record the session
+            # Record the session
             ffmpeg -video_size 1280x1024 -framerate 25 -f x11grab -i :99.0 screen_recording.mp4
 
 release:
