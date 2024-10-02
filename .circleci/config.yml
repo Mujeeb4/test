@@ -19,17 +19,15 @@ jobs:
             wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
             echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' | sudo tee /etc/apt/sources.list.d/google-chrome.list
             sudo apt-get update
-            sudo apt-get install -y google-chrome-stable xvfb ffmpeg
+            sudo apt-get install -y google-chrome-stable xvfb
             pip install selenium
       - run:
-          name: Run the test with screen recording
+          name: Run the test (no recording)
           command: |
             Xvfb :99 -screen 0 1280x1024x16 & # Start virtual display
             export DISPLAY=:99
             google-chrome --version  # Verify Chrome is installed
             python test_script.py
-            # Record the session
-            ffmpeg -video_size 1280x1024 -framerate 25 -f x11grab -i :99.0 screen_recording.mp4
 
 release:
   executor: python-executor
