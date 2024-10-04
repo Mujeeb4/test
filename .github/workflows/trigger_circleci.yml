@@ -11,7 +11,7 @@ jobs:
     steps:
     - name: Trigger CircleCI Pipeline
       run: |
-        curl --location --request POST "https://circleci.com/api/v2/project/github/Dovidigital/testLinux/pipeline" \
+        curl --location --request POST "https://circleci.com/api/v2/project/github/Dovidigital/test/pipeline" \
         --header "circle-token: ${{ secrets.CIRCLECI_TOKEN }}" \
         --header "Content-Type: application/json" \
         --data-raw '{
